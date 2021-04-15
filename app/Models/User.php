@@ -44,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'mobile_verified_at' => 'datetime',
     ];
+
+    public function Sms()
+    {
+        return $this->hasMany(Sms::class);
+    }
 }
