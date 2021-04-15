@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,13 +19,25 @@ use App\Http\Controllers\Controller;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix' => 'm', 'middleware' => ['auth:web']], function () {
+    Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->name('updateMobileNo');
+    Route::get('/resendcode', [Controller::class, 'resendCode'])->name('resendCode');
+    Route::post('/verifycode', [Controller::class, 'verifycode'])->name('verifycode');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/messages', function () {
 
-Route::get('/dashboard', function () {
+        if (Auth::user()->mobile && Auth::user()->mobile_verified_at) {
+            return view('messages');
+        } else {
+           return Redirect::route('dashboard')->with('info', 'Your account is not active yet.');
+        }
 
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->middleware('auth')->name('updateMobileNo');
-Route::get('/resendcode', [Controller::class, 'resendCode'])->middleware('auth')->name('resendCode');
-Route::post('/verifycode', [Controller::class, 'verifycode'])->middleware('auth')->name('verifycode');
+    })->name('messages');
 
-require __DIR__.'/auth.php';
+
+});
+
+
+require __DIR__ . '/auth.php';

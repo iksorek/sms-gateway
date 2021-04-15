@@ -8,6 +8,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+
+
                 @if ($errors->any())
                     <div class="bg-red-700 text-2xl text-center p-3">
                         <ul>
@@ -27,6 +29,10 @@
                         <p class="m-4">There is no mobile number added yet! You have to add it before continue</p>
                     @endif
                     <div>
+                        @if(Auth::user()->mobile && Auth::user()->mobile_verified_at)
+                            <p class="text-center text-2xl">You account is active. Feel free to <a
+                                    href="{{route('messages')}}">send text</a></p>
+                        @endif
                         <form action="{{ route('updateMobileNo') }}" method="post">
                             @csrf
                             <x-label>Mobile number</x-label>
@@ -34,7 +40,13 @@
                                      value="{{Auth::user()->mobile ?? ''}}"
 
                                      class="m-5" name="newmobile"></x-input>
-                            <x-button>Submit</x-button>
+                            <x-button>
+                                @if(Auth::user()->mobile)
+                                    Change
+                                @else
+                                    Submit
+                                @endif
+                            </x-button>
                         </form>
                     </div>
 
