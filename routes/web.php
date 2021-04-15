@@ -22,5 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->middleware('auth')->name('updateMobileNo');
+Route::get('/resendcode', [Controller::class, 'resendCode'])->middleware('auth')->name('resendCode');
+Route::post('/verifycode', [Controller::class, 'verifycode'])->middleware('auth')->name('verifycode');
 
 require __DIR__.'/auth.php';

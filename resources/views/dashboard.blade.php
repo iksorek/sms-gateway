@@ -17,9 +17,9 @@
                         </ul>
                     </div>
                 @endif
-                    @if (session('info'))
+                @if (session('info'))
                     <div class="bg-blue-400 text-2xl text-center p-3">
-                     <p>{!! Session::get('info') !!}</p>
+                        <p>{!! Session::get('info') !!}</p>
                     </div>
                 @endif
                 <div class="p-6 bg-gray-500 border-b border-gray-200">
@@ -39,8 +39,24 @@
                     </div>
 
 
-                    @if(!Auth::user()->mobile_verified_at)
+                    @if(!Auth::user()->mobile_verified_at && Auth::user()->mobile)
                         <p>Your mobile number is not verified yet</p>
+                        <form action="{{ route('verifycode') }}" method="post" class="my-5">
+                            @csrf
+                            @if(Auth::user()->verification_code)
+                                <x-label>Enter verification code: ({{ Auth::user()->verification_code }})</x-label>
+                                <x-input placeholder="Code" type="text"
+                                         class="m-5" name="verification_code"></x-input>
+                                <x-button>Submit</x-button>
+                            @endif
+                            @if(!Auth::user()->mobile_verified_at)
+                                <p class="text-center m-5">
+                                    <a href="{{route("resendCode")}}">RESEND VEREFICATION CODE</a>
+                                </p>
+                            @endif
+
+
+                        </form>
                     @endif
                 </div>
 
