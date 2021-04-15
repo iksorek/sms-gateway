@@ -24,19 +24,24 @@
 
 
         <div class="p-10 bg-gray-500 border-b border-gray-200 rounded-2xl">
-            {{--               ONLY FOR REGISTRED AND VERIFIED--}}
-            <form action="sendMessage" method="post" class="h-3/4">
-                @csrf
-                <x-label>Recipient number</x-label>
-                <x-input type="text" name="recipient"
-                         value="{{old('recipient')}}"
-                         class="w-3/4 my-2" placeholder="Enter valid mobile number"/>
-                <x-label>Your text message</x-label>
-                <x-input type="textarea" name="message"
-                         value="{{old('message')}}"
-                         class="h-48 w-3/4" placeholder="Type message here"/>
-                <x-button class="w-3/4 my-2">Send</x-button>
-            </form>
+            @if(\Illuminate\Support\Facades\Cache::has('sms'))
+                <p>There is a limit: 1 message per 15 seconds.</p>
+
+            @else
+                {{--               ONLY FOR REGISTRED AND VERIFIED--}}
+                <form action="sendMessage" method="post" class="h-3/4">
+                    @csrf
+                    <x-label>Recipient number</x-label>
+                    <x-input type="text" name="recipient"
+                             value="{{old('recipient')}}"
+                             class="w-3/4 my-2" placeholder="Enter valid mobile number"/>
+                    <x-label>Your text message</x-label>
+                    <x-input type="textarea" name="message"
+                             value="{{old('message')}}"
+                             class="h-48 w-3/4" placeholder="Type message here"/>
+                    <x-button class="w-3/4 my-2">Send</x-button>
+                </form>
+            @endif
         </div>
 
 

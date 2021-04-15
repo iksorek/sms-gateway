@@ -6,6 +6,7 @@ use App\Models\Sms;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -26,16 +27,19 @@ class SmsController extends Controller
         $message->status = 'unknown';
         $message->save();
         Session::flash('info', 'Message saved, waiting to be send');
+        Cache::add('sms', now(), 15);
         return redirect(route('messages'));
 
     }
 
-    public function ShowSmsForm(){
-
+    public function ShowSmsForm()
+    {
         if (Auth::user()->mobile && Auth::user()->mobile_verified_at) {
-            return view('messages');
+            return view('messages')->with('done', Cache::get('sms'));
         } else {
             return Redirect::route('dashboard')->with('info', 'Your account is not active yet.');
         }
+
+
     }
 }
