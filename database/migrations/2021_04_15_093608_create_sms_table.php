@@ -17,7 +17,6 @@ class CreateSmsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('message');
-
             $table->string('status');
             $table->timestamps();
         });
