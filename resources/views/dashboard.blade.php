@@ -56,7 +56,9 @@
                         <form action="{{ route('verifycode') }}" method="post" class="my-5">
                             @csrf
                             @if(Auth::user()->verification_code)
-                                <x-label>Enter verification code: ({{ Auth::user()->verification_code }})</x-label>
+                                <x-label>Enter verification code:
+{{--                                    ({{ Auth::user()->verification_code }})--}}
+                                </x-label>
                                 <x-input placeholder="Code" type="text"
                                          class="m-5" name="verification_code"></x-input>
                                 <x-button>Submit</x-button>
