@@ -5,17 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,6 +12,7 @@ Route::group(['prefix' => 'm', 'middleware' => ['auth:web']], function () {
     Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->name('updateMobileNo');
     Route::get('/resendcode', [Controller::class, 'resendCode'])->name('resendCode');
     Route::post('/verifycode', [Controller::class, 'verifycode'])->name('verifycode');
+    Route::post('/sendMessage', [Controller::class, 'sendMessage'])->name('sendMessage');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
