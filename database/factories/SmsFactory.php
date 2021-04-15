@@ -27,7 +27,7 @@ class SmsFactory extends Factory
             'user_id'=>User::all()->random()->id,
             'recipient'=>$this->faker->e164PhoneNumber,
             'message'=>$this->faker->words(15, true),
-            'status'=>'unknown',
+            'status'=>'sent',
             'created_at'=>$this->faker->dateTimeBetween('-1 week', 'now'),
             ];
     }
