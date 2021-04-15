@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Sms;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+         \App\Models\User::factory(10)->create();
         DB::table('users')->insert([
             'name' => 'Marek Rogon',
             'email' => 'iksorek@gmail.com',
@@ -22,5 +24,9 @@ class DatabaseSeeder extends Seeder
 
 
         ]);
+        User::all()->each(function (User $user){
+           $sms = Sms::factory()->count(20)->make();
+           $user->sms()->saveMany($sms);
+        });
     }
 }

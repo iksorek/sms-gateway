@@ -45,7 +45,7 @@ class SmsController extends Controller
 
     }
     public function log(){
-        $messages = Sms::with(['User'])->orderBy('id', 'DESC')->get();
+        $messages = Sms::with(['User'])->orderBy('created_at', 'DESC')->get();
 
 
         return view('log')->with(['messages'=>$messages]);
