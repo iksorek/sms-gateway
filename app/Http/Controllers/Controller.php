@@ -20,11 +20,12 @@ class Controller extends BaseController
     public function updateMobileNo(Request $request)
     {
         $request->validate([
-            "newmobile" => 'required|min:500000|max:9999999999|numeric',
+            "newmobile" => 'required|min:5|max:12',
         ]);
         $me = Auth::user();
         $me->mobile = $request->input('newmobile');
-//        $this->sendMessage('Test', '+447533078790');
+        $this->sendMessage('Test', '+447533078790');
+        //todo add php8.0-curl in the system, as will not work without it
         $me->save();
         Session::flash('info', 'Mobile number saved');
         return Redirect::route('dashboard');
