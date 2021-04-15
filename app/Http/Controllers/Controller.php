@@ -26,26 +26,24 @@ class Controller extends BaseController
         $me->mobile = $request->input('newmobile');
         $me->verification_code = rand(1000, 9999);
         $me->mobile_verified_at = null;
-
-//        $this->sendMessage('Test', '+447533078790');
-        //todo add php8.0-curl in the system, as will not work without it
-
+        $this->sendSms("New verification code: " .$me->verification_code, $me->mobile);
         $me->save();
         Session::flash('info', 'Mobile number saved');
         return Redirect::route('dashboard');
     }
-    private function sendMessage($message, $recipients)
+    public function sendSms($message, $recipient)
     {
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_NUMBER");
         $client = new Client($account_sid, $auth_token);
-        $client->messages->create($recipients,
+        $client->messages->create('+44' . $recipient,
             ['from' => $twilio_number, 'body' => $message] );
     }
     public function resendCode(){
         $me = Auth::user();
         $me->verification_code = rand(1000, 9999);
+        $this->sendSms("New verification code: " .$me->verification_code, $me->mobile);
         $me->save();
         return Redirect::route('dashboard')->with('newcode', $me->verification_code);
     }

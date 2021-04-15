@@ -25,10 +25,11 @@ class SmsController extends Controller
         $message->user_id = Auth::id();
         $message->recipient = $request->input('recipient');
         $message->message = $request->input('message');
-        $message->status = 'unknown';
-        $message->status = 'unknown';
+        $message->status = 'Sent / not confirmed';
         $message->save();
-        Session::flash('info', 'Message saved, waiting to be send');
+        $this->sendSms($message->message, $message->recipient);
+
+        Session::flash('info', 'Message sent');
         Cache::add('sms-' . Auth::id(), now(), 15);
         return redirect(route('messages'));
 

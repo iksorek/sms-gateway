@@ -36,7 +36,7 @@
                         <form action="{{ route('updateMobileNo') }}" method="post">
                             @csrf
                             <x-label>Mobile number</x-label>
-                            <x-input placeholder="+44" type="text"
+                            <x-input placeholder="eg 07533078790" type="text"
                                      value="{{Auth::user()->mobile ?? ''}}"
 
                                      class="m-5" name="newmobile"></x-input>
