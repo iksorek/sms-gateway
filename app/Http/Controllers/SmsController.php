@@ -29,7 +29,7 @@ class SmsController extends Controller
         $message->status = 'unknown';
         $message->save();
         Session::flash('info', 'Message saved, waiting to be send');
-        Cache::add('sms', now(), 15);
+        Cache::add('sms-' . Auth::id(), now(), 15);
         return redirect(route('messages'));
 
     }
@@ -37,17 +37,19 @@ class SmsController extends Controller
     public function ShowSmsForm()
     {
         if (Auth::user()->mobile && Auth::user()->mobile_verified_at) {
-            return view('messages')->with('done', Cache::get('sms-'.Auth::id()));
+            return view('messages')->with('done', Cache::get('sms-' . Auth::id()));
         } else {
             return Redirect::route('dashboard')->with('info', 'Your account is not active yet.');
         }
 
 
     }
-    public function log(){
+
+    public function log()
+    {
         $messages = Sms::with(['User'])->orderBy('created_at', 'DESC')->get();
 
 
-        return view('log')->with(['messages'=>$messages]);
+        return view('log')->with(['messages' => $messages]);
     }
 }
