@@ -18,6 +18,7 @@ Route::group(['prefix' => 'm', 'middleware' => ['auth:web']], function () {
         return view('dashboard');
     })->name('dashboard');
     Route::get('/messages', [SmsController::class, 'ShowSmsForm'])->name('messages');
+    Route::get('/log', [SmsController::class, 'log'])->name('log');
 
 
 });

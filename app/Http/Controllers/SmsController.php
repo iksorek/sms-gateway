@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sms;
+use App\Models\User;
+use DebugBar\Bridge\SlimCollector;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,5 +43,11 @@ class SmsController extends Controller
         }
 
 
+    }
+    public function log(){
+        $messages = Sms::with(['User'])->orderBy('id', 'DESC')->get();
+
+
+        return view('log')->with(['messages'=>$messages]);
     }
 }

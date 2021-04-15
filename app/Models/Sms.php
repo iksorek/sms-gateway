@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Sms extends Model
 {
     use HasFactory;
-    public function User(){
+
+    public function User(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
+
+
 }

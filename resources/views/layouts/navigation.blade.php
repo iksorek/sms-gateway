@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
                         Messages
                     </x-nav-link>
+                    <x-nav-link :href="route('log')" :active="request()->routeIs('log')">
+                        Messages LOG
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
                  Messages
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('log')" :active="request()->routeIs('log')">
+                 Messages LOG
             </x-responsive-nav-link>
         </div>
 
