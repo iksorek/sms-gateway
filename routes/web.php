@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,5 +21,6 @@ Route::get('/dashboard', function () {
 
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->middleware('auth')->name('updateMobileNo');
 
 require __DIR__.'/auth.php';
