@@ -25,6 +25,7 @@ class Controller extends BaseController
         $me = Auth::user();
         $me->mobile = $request->input('newmobile');
         $this->sendMessage('Test', '+447533078790');
+
         //todo add php8.0-curl in the system, as will not work without it
         $me->save();
         Session::flash('info', 'Mobile number saved');
