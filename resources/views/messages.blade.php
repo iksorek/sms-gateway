@@ -5,31 +5,37 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                @if ($errors->any())
-                    <div class="bg-red-700 text-2xl text-center p-3">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if (session('info'))
-                    <div class="bg-blue-400 text-2xl text-center p-3">
-                        <p>{!! Session::get('info') !!}</p>
-                    </div>
-                @endif
-                <div class="p-6 bg-gray-500 border-b border-gray-200">
-{{--               ONLY FOR REGISTRED AND VERIFIED--}}
+    <div class="py-12 container max-w-7xl mx-auto">
 
-
-                </div>
-
-
+        @if ($errors->any())
+            <div class="bg-red-700 text-2xl text-center p-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+        @endif
+        @if (session('info'))
+            <div class="bg-blue-400 text-2xl text-center p-3">
+                <p>{!! Session::get('info') !!}</p>
+            </div>
+        @endif
+
+
+
+        <div class="p-10 bg-gray-500 border-b border-gray-200">
+            {{--               ONLY FOR REGISTRED AND VERIFIED--}}
+            <form action="sendMessage" method="post" class="h-3/4">
+                @csrf
+                <x-label>Mobile number</x-label>
+                <x-input type="text" class="w-3/4 my-2" placeholder="Enter valid mobile number"/>
+                <x-label>Your text message</x-label>
+                <x-input type="textarea" class="h-48 w-3/4" placeholder="Type message here"/>
+                <x-button class="w-3/4 my-2">Send</x-button>
+            </form>
         </div>
+
+
     </div>
 </x-app-layout>
