@@ -21,7 +21,12 @@
                     </thead>
                     <tbody>
                     @foreach ($messages as $message)
-                        <tr class="text-sm">
+                        @if(\Illuminate\Support\Facades\Auth::id() == $message->user->id)
+                        <tr class="text-sm bg-gray-400">
+                            @else
+                            <tr class="text-sm">
+                            @endif
+
                             <th>{{$message->user->name}}</th>
                             <th>{{$message->recipient}}</th>
                             <th>{{$message->message}}</th>
