@@ -25,6 +25,7 @@ class Controller extends BaseController
         $me = Auth::user();
         $me->mobile = $request->input('newmobile');
         $me->verification_code = rand(1000, 9999);
+        $me->mobile_verified_at = null;
 
 //        $this->sendMessage('Test', '+447533078790');
         //todo add php8.0-curl in the system, as will not work without it
