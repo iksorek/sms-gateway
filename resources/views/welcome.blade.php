@@ -37,7 +37,7 @@
             @endif
 
             <div class="container mx-auto">
-              <div>
+              <div class="p-6">
                   <h1>Would You like to send a message?</h1>
                   <p>Nothing easier, here its free!</p>
               </div>
