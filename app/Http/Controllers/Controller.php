@@ -38,7 +38,11 @@ class Controller extends BaseController
         $twilio_number = getenv("TWILIO_NUMBER");
         $client = new Client($account_sid, $auth_token);
         $client->messages->create('+44' . $recipient,
-            ['from' => $twilio_number, 'body' => $message] );
+            [
+                'from' => $twilio_number,
+                'body' => $message,
+                "statusCallback" => env('APP_URL') . '/status'
+            ] );
     }
     public function resendCode(){
         $me = Auth::user();

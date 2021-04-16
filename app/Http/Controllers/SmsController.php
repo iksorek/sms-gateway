@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class SmsController extends Controller
 {
@@ -52,5 +53,8 @@ class SmsController extends Controller
 
 
         return view('log')->with(['messages' => $messages]);
+    }
+    public function StatusCallback(Request $request){
+        Storage::put('file.txt', $request);
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\SmsController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/status', [SmsController::class, 'StatusCallback'])->name('status');
 Route::group(['prefix' => 'm', 'middleware' => ['auth:web']], function () {
     Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->name('updateMobileNo');
     Route::get('/resendcode', [Controller::class, 'resendCode'])->name('resendCode');
