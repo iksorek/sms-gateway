@@ -25,7 +25,7 @@ class SmsController extends Controller
         $message->user_id = Auth::id();
         $message->recipient = $request->input('recipient');
         $message->message = $request->input('message');
-        $message->status = 'Send';
+        $message->status = 'Sent';
         $message->save();
         $this->sendSms($message->message, $message->recipient);
 
