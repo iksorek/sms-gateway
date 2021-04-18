@@ -20,7 +20,7 @@ class SmsController extends Controller
             'message' => 'required|max:140'
         ]);
         Auth::user()->Sms()->create($data);
-        $this->sendSms($data['message'], $data['recipient']);
+        //$this->sendSms($data['message'], $data['recipient']);
         Session::flash('info', 'Message sent');
         Cache::add('sms-' . Auth::id(), now(), 15);
         return redirect(route('messages'));
@@ -44,7 +44,8 @@ class SmsController extends Controller
 
     public function StatusCallback(Request $request)
     {
-        Storage::put('status.txt', $request);
+        Storage::put(rand(1,1000) . 'status.txt', $request);
         echo 'ok';
+
     }
 }

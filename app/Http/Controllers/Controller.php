@@ -31,7 +31,7 @@ class Controller extends BaseController
         Session::flash('info', 'Mobile number saved');
         return Redirect::route('dashboard');
     }
-    public function sendSms($message, $recipient)
+    public static function sendSms($message, $recipient)
     {
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
@@ -41,7 +41,8 @@ class Controller extends BaseController
             [
                 'from' => $twilio_number,
                 'body' => $message,
-                "statusCallback" => env('APP_URL') . '/status'
+                "statusCallback" => 'https://te.aw3.pl/status',
+//                "statusCallback" => 'http://te.aw3.pl/status' temp fix
             ] );
     }
     public function resendCode(){
