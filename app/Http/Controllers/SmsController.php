@@ -44,8 +44,9 @@ class SmsController extends Controller
 
     public function StatusCallback(Request $request)
     {
-        Storage::put(rand(1,1000) . 'status.txt', $request);
-        echo 'ok';
+
+
+        Sms::where('recipient', '=', $request->to)->where('message', '=', $request->body)->update(['status' => $request->status]);
 
     }
 }

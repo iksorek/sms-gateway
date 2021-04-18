@@ -9,7 +9,7 @@ use App\Http\Controllers\SmsController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/status', [SmsController::class, 'StatusCallback'])->name('status');
+Route::post('/status', [SmsController::class, 'StatusCallback'])->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
 Route::group(['prefix' => 'm', 'middleware' => ['auth:web']], function () {
     Route::post('/updatemobileno', [Controller::class, 'updateMobileNo'])->name('updateMobileNo');
     Route::get('/resendcode', [Controller::class, 'resendCode'])->name('resendCode');
