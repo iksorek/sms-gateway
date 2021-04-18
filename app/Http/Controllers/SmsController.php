@@ -38,15 +38,15 @@ class SmsController extends Controller
 
     public function log()
     {
+        $this->refresh_status();
         $messages = Sms::with(['User'])->orderBy('created_at', 'DESC')->get();
         return view('log')->with(['messages' => $messages]);
     }
 
     public function StatusCallback(Request $request)
     {
-
-
         Sms::where('recipient', '=', $request->to)->where('message', '=', $request->body)->update(['status' => $request->status]);
-
     }
+
+
 }

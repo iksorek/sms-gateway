@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sms;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -26,11 +27,12 @@ class Controller extends BaseController
         $me->mobile = $request->input('newmobile');
         $me->verification_code = rand(1000, 9999);
         $me->mobile_verified_at = null;
-        $this->sendSms("New verification code: " .$me->verification_code, $me->mobile);
+        $this->sendSms("New verification code: " . $me->verification_code, $me->mobile);
         $me->save();
         Session::flash('info', 'Mobile number saved');
         return Redirect::route('dashboard');
     }
+
     public static function sendSms($message, $recipient)
     {
         $account_sid = getenv("TWILIO_SID");
@@ -41,30 +43,51 @@ class Controller extends BaseController
             [
                 'from' => $twilio_number,
                 'body' => $message,
-                "statusCallback" => 'https://te.aw3.pl/status',
-//                "statusCallback" => 'http://te.aw3.pl/status' temp fix
-            ] );
+            ]);
     }
-    public function resendCode(){
+
+    public function refresh_status()
+    {
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $client = new Client($account_sid, $auth_token);
+
+        $messages = $client->messages
+            ->read([
+            ],
+                20
+            );
+        foreach ($messages as $record) {
+
+            $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
+            Sms::where('recipient', '=', $string_to_be_compared)->where('message', '=', $record->body)->update(['status' => $record->status]);
+
+        }
+    }
+
+    public function resendCode()
+    {
         $me = Auth::user();
         $me->verification_code = rand(1000, 9999);
-        $this->sendSms("New verification code: " .$me->verification_code, $me->mobile);
+        $this->sendSms("New verification code: " . $me->verification_code, $me->mobile);
         $me->save();
         return Redirect::route('dashboard')->with('newcode', $me->verification_code);
     }
-    public function verifycode(Request $request){
+
+    public function verifycode(Request $request)
+    {
         $request->validate([
-            'verification_code'=>'numeric|required',
+            'verification_code' => 'numeric|required',
         ]);
         $me = Auth::user();
-        if($request->input('verification_code') == $me->verification_code){
-        $me->mobile_verified_at = now();
-        $me->save();
-        Session::flash('info', 'Mobile number verified!');
+        if ($request->input('verification_code') == $me->verification_code) {
+            $me->mobile_verified_at = now();
+            $me->save();
+            Session::flash('info', 'Mobile number verified!');
         } else {
             Session::flash('info', 'Wrong code!');
         }
 
-       return Redirect::route('dashboard');
+        return Redirect::route('dashboard');
     }
 }
