@@ -18,7 +18,7 @@ class CreateSmsTable extends Migration
             $table->foreignId('user_id');
             $table->string('recipient');
             $table->string('message');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
