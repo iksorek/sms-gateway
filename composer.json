@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -10,7 +13,6 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.5",
         "predis/predis": "^1.1",
         "twilio/sdk": "^6.21"
@@ -57,11 +59,7 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true,
-        "platform": {
-            "ext-pcntl": "7.3",
-            "ext-posix": "7.3"
-        }
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true
