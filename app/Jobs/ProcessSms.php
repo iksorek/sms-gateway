@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Controllers\Controller;
 use App\Models\Sms;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -14,14 +15,17 @@ class ProcessSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $sms;
+
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Sms $sms)
     {
-        //
+        $this->sms = $sms;
     }
 
     /**
@@ -29,9 +33,9 @@ class ProcessSms implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Sms $sms)
+    public function handle()
+
     {
-        //
-        //
+        Controller::sendSms($this->sms->message, $this->sms->recipient);
     }
 }

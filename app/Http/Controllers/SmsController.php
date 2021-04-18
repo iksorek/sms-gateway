@@ -43,10 +43,5 @@ class SmsController extends Controller
         return view('log')->with(['messages' => $messages]);
     }
 
-    public function StatusCallback(Request $request)
-    {
-        Sms::where('recipient', '=', $request->to)->where('message', '=', $request->body)->update(['status' => $request->status]);
-    }
-
 
 }
