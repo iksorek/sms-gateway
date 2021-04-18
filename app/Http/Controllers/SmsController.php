@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\RefreshSmsStatus;
 use App\Models\Sms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,6 @@ class SmsController extends Controller
             'message' => 'required|max:140'
         ]);
         Auth::user()->Sms()->create($data);
-//        $this->sendSms($data['message'], $data['recipient']);
         Session::flash('info', 'Message sent');
         Cache::add('sms-' . Auth::id(), now(), 15);
         return redirect(route('messages'));
@@ -38,7 +38,7 @@ class SmsController extends Controller
 
     public function log()
     {
-        $this->refresh_status();
+        RefreshSmsStatus::dispatch();
         $messages = Sms::with(['User'])->orderBy('created_at', 'DESC')->get();
         return view('log')->with(['messages' => $messages]);
     }

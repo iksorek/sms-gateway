@@ -46,22 +46,22 @@ class Controller extends BaseController
             ]);
     }
 
-    public function refresh_status()
-    {
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-        $client = new Client($account_sid, $auth_token);
-        $messages = $client->messages
-            ->read([
-                //todo if project grows, would put some more limitations here
-            ],
-                20
-            );
-        foreach ($messages as $record) {
-            $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
-            Sms::where('recipient', '=', $string_to_be_compared)->where('message', '=', $record->body)->update(['status' => $record->status]);
-        }
-    }
+//    public function refresh_status()
+//    {
+//        $account_sid = getenv("TWILIO_SID");
+//        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+//        $client = new Client($account_sid, $auth_token);
+//        $messages = $client->messages
+//            ->read([
+//                //todo if project grows, would put some more limitations here
+//            ],
+//                20
+//            );
+//        foreach ($messages as $record) {
+//            $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
+//            Sms::where('recipient', '=', $string_to_be_compared)->where('message', '=', $record->body)->update(['status' => $record->status]);
+//        }
+//    }
 
     public function resendCode()
     {
