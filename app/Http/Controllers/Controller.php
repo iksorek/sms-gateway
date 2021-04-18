@@ -51,7 +51,6 @@ class Controller extends BaseController
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $client = new Client($account_sid, $auth_token);
-
         $messages = $client->messages
             ->read([
             ],
