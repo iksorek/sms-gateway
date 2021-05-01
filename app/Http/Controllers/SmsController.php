@@ -20,7 +20,6 @@ class SmsController extends Controller
             'recipient' => 'required|numeric|digits:11',
             'message' => 'required|max:140'
         ]);
-        $data->status = 'IN QUEUE';
         Auth::user()->Sms()->create($data);
         Session::flash('info', 'Message sent');
         Cache::add('sms-' . Auth::id(), now(), 15);
