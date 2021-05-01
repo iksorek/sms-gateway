@@ -21,10 +21,7 @@ class Sms extends Model
     protected static function booted()
     {
         static::created(function ($Sms) {
-
-//            SmsController::sendSms($Sms->message, $Sms->recipient);
-
-          ProcessSms::dispatch($Sms);
+            ProcessSms::dispatch($Sms);
 
         });
     }
