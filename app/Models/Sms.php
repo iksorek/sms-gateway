@@ -24,7 +24,7 @@ class Sms extends Model
 
 //            SmsController::sendSms($Sms->message, $Sms->recipient);
 
-            ProcessSms::dispatch($Sms);
+          ProcessSms::dispatch($Sms);
 
         });
     }

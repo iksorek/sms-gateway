@@ -39,6 +39,7 @@ class RefreshSmsStatus implements ShouldQueue
         $client = new Client($account_sid, $auth_token);
         $messages = $client->messages
             ->read([
+                'status' != 'delivered'
                 //todo if project grows, would put some more limitations here
             ],
                 20

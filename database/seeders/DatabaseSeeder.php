@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder
 
         ]);
         User::all()->each(function (User $user) {
-//           $sms = Sms::factory()->count(20)->make();
-//           $user->sms()->saveMany($sms);
+          $sms = Sms::factory()->count(20)->make();
+           $user->sms()->saveMany($sms);
         });
     }
 }

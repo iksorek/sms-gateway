@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
-                        Messages
+                        Send Message
                     </x-nav-link>
                     <x-nav-link :href="route('log')" :active="request()->routeIs('log')">
                         Messages LOG

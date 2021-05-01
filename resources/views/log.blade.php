@@ -9,14 +9,14 @@
         <div class="p-10 bg-gray-500 border-b border-gray-200 rounded-2xl">
             @if($messages)
 
-                <table class="table-fixed">
+                <table class="table-auto w-full">
                     <thead>
                     <tr class="bg-gray-300">
-                        <th class="w-1/6">Sender</th>
-                        <th class="w-1/8">Recipient</th>
-                        <th class="w-1/2">Message</th>
-                        <th class="w-1/8">Status</th>
-                        <th class="w-1/4">Time</th>
+                        <th class="w-1/4">Sender</th>
+                        <th>Recipient</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Time</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,8 +28,8 @@
                             @endif
 
                             <th>{{$message->user->name}}</th>
-                            <th>{{$message->recipient}}</th>
-                            <th>{{$message->message}}</th>
+                            <th>*******{{ \Illuminate\Support\Str::substr($message->recipient, -3, 3)}}</th>
+                            <th>{{ \Illuminate\Support\Str::limit($message->message, 40, '(...)')}}</th>
                             <th>{{$message->status}}</th>
                             <th>{{$message->created_at->diffForHumans()}}</th>
                         </tr>
