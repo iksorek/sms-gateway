@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\RefreshSmsStatus;
 use App\Models\Sms;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -39,7 +40,7 @@ class SmsController extends Controller
     public function log()
     {
         RefreshSmsStatus::dispatch();
-        $messages = Sms::with(['User'])->orderBy('created_at', 'DESC')->get();
+        $messages = Sms::with(['User', 'User'])->orderBy('created_at', 'DESC')->paginate(10);
         return view('log')->with(['messages' => $messages]);
     }
 

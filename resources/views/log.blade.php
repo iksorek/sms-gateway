@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12 container max-w-7xl mx-auto">
-        <div class="p-10 bg-gray-500 border-b border-gray-200 rounded-2xl">
+        <div class="p-10 bg-gray-500 border-b border-gray-200 rounded-2xl overflow-hidden">
             @if($messages)
 
                 <table class="table-auto w-full">
@@ -22,22 +22,23 @@
                     <tbody>
                     @foreach ($messages as $message)
                         @if(\Illuminate\Support\Facades\Auth::id() == $message->user->id)
-                        <tr class="text-sm bg-gray-400">
-                            @else
+                            <tr class="text-sm bg-gray-400">
+                        @else
                             <tr class="text-sm">
-                            @endif
+                                @endif
 
-                            <th>{{$message->user->name}}</th>
-                            <th>*******{{ \Illuminate\Support\Str::substr($message->recipient, -3, 3)}}</th>
-                            <th>{{ \Illuminate\Support\Str::limit($message->message, 40, '(...)')}}</th>
-                            <th>{{$message->status}}</th>
-                            <th>{{$message->created_at->diffForHumans()}}</th>
-                        </tr>
+                                <th>{{$message->user->name}}</th>
+                                <th>*******{{ \Illuminate\Support\Str::substr($message->recipient, -3, 3)}}</th>
+                                <th>{{ \Illuminate\Support\Str::limit($message->message, 40, '(...)')}}</th>
+                                <th>{{$message->status}}</th>
+                                <th>{{$message->created_at->diffForHumans()}}</th>
+                            </tr>
 
 
-                    @endforeach
+                            @endforeach
                     </tbody>
                 </table>
+                <div class="w-3/4 mx-auto mt-5">{{$messages->links()}}</div>
             @else
                 <p>There is no messages in database</p>
 

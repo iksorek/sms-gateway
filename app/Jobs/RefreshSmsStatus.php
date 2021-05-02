@@ -42,7 +42,7 @@ class RefreshSmsStatus implements ShouldQueue
                 'status' != 'delivered'
                 //todo if project grows, would put some more limitations here
             ],
-                20
+                5,
             );
         foreach ($messages as $record) {
             $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
