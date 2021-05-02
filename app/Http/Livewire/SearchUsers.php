@@ -33,4 +33,9 @@ class SearchUsers extends Component
         $this->mobile = $mobile;
         $this->search = '';
     }
+    public function reset(...$properties)
+    {
+        $this->search = '';
+        $this->mobile = '';
+    }
 }
