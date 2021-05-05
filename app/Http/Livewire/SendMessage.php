@@ -13,7 +13,7 @@ class SendMessage extends Component
 
 
     public $message;
-    public $recipient;
+    public $recipient = '';
     public $search = '';
 
     protected $rules = [
@@ -57,7 +57,7 @@ class SendMessage extends Component
     public function reset(...$properties)
     {
         $this->search = '';
-        $this->recipient = '';
+        $this->recipient = null;
     }
 
 

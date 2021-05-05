@@ -14,9 +14,11 @@
                     >{{$user->name}}</button><br>
                 @endforeach
             </div>
+
         @endif
 
     @endif
+        @error('recipient') <p class="text-red-600 text-xl-center">{{ $message }}</p> @enderror
 
 
     <x-input type="hidden"
