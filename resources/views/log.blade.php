@@ -33,7 +33,7 @@
                                 @if(\Illuminate\Support\Facades\Auth::id() == $message->user->id)
                                     <td>{{ \Illuminate\Support\Str::limit($message->message, 40, '(...)')}}</td>
                                 @else
-                                    <td class="text-transparent">{{ \Illuminate\Support\Str::limit($message->message, 40, '(...)')}}</td>
+                                    <td class="text-gray-500">***** ***</td>
                                 @endif
 
 
