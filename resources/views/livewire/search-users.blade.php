@@ -20,7 +20,9 @@
     @endif
 
 
-    <x-input type="hidden" name="recipient"
+    <x-input type="hidden"
+             wire:model="recipient"
+             name="recipient"
              value="{{ $mobile ?? '' }}"
 
     />

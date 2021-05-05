@@ -11,11 +11,14 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\ViewErrorBag;
 use Twilio\Rest\Client;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+
 
 
     public function updateMobileNo(Request $request)
@@ -29,8 +32,8 @@ class Controller extends BaseController
         $me->mobile_verified_at = null;
         $this->sendSms("New verification code: " . $me->verification_code, $me->mobile);
         $me->save();
-        Session::flash('info', 'Mobile number saved');
-        return Redirect::route('dashboard');
+        request()->session()->flash('flash.banner', 'New mobile number saved. You have to validate it');
+        return Redirect::route('profile.show');
     }
 
     public static function sendSms($message, $recipient)
@@ -69,7 +72,7 @@ class Controller extends BaseController
         $me->verification_code = rand(1000, 9999);
         $this->sendSms("New verification code: " . $me->verification_code, $me->mobile);
         $me->save();
-        return Redirect::route('dashboard')->with('newcode', $me->verification_code);
+        return Redirect::route('profile.show')->with('newcode', $me->verification_code);
     }
 
     public function verifycode(Request $request)
@@ -81,11 +84,12 @@ class Controller extends BaseController
         if ($request->input('verification_code') == $me->verification_code) {
             $me->mobile_verified_at = now();
             $me->save();
-            Session::flash('info', 'Mobile number verified!');
+            request()->session()->flash('flash.banner', 'Mobile number has been verified!');
         } else {
-            Session::flash('info', 'Wrong code!');
+            request()->session()->flash('flash.banner', "Wrong code!");
+            request()->session()->flash('flash.bannerStyle', 'danger');
         }
 
-        return Redirect::route('dashboard');
+        return Redirect::route('profile.show');
     }
 }

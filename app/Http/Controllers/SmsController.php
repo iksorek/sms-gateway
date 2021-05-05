@@ -22,7 +22,8 @@ class SmsController extends Controller
             'message' => 'required|max:140'
         ]);
         Auth::user()->Sms()->create($data);
-        Session::flash('info', 'Message sent');
+//        Session::flash('info', 'Message sent');
+        request()->session()->flash('flash.banner', 'Message in queue.');
         Cache::add('sms-' . Auth::id(), now(), 15);
         return redirect(route('messages'));
 

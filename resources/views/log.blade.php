@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12 container max-w-7xl mx-auto">
-        <div class="p-10 bg-gray-500 border-b border-gray-200 rounded-2xl overflow-hidden">
+        <div class="p-10 bg-gray-300 border-b border-gray-200 rounded-2xl overflow-hidden">
             @if($messages)
 
                 <table class="table-auto w-full">
