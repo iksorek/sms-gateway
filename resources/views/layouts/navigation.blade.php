@@ -73,7 +73,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('messages')" :active="request()->routeIs('messages')">
-                 Messages
+                 Send message!
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('log')" :active="request()->routeIs('log')">
                  Messages LOG
