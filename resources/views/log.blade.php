@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 container max-w-7xl mx-auto ">
-        <div class="p-10 bg-gray-300 border-b border-gray-200 rounded-2xl overflow-x-auto">
+    <div class="md:py-12 container max-w-7xl mx-auto ">
+        <div class="md:p-10 bg-gray-300 border-b border-gray-200 rounded-2xl overflow-x-auto">
             @if($messages)
 
                 <table class="table-auto w-full">
