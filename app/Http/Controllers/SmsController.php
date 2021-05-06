@@ -34,7 +34,8 @@ class SmsController extends Controller
         if (Auth::user()->mobile && Auth::user()->mobile_verified_at) {
             return view('messages')->with('done', Cache::get('sms-' . Auth::id()));
         } else {
-            return Redirect::route('dashboard')->with('info', 'Your account is not active yet.');
+            request()->session()->flash('flash.banner', 'You have to provide valid mobile number to get full access.');
+            return Redirect::route('profile.show');
         }
     }
 
