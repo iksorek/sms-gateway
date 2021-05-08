@@ -24,11 +24,11 @@ class Controller extends BaseController
     public function updateMobileNo(Request $request)
     {
         if($request->input('prefix') === '+44') {
-            $rules = ["newmobile" => 'required|size:10|numeric',
+            $rules = ["newmobile" => 'required|digits:10',
                 'prefix'=>'required'];
         }
         if($request->input('prefix') === '+48') {
-            $rules = ["newmobile" => 'required|size:9|numeric',
+            $rules = ["newmobile" => 'required|digits:9',
                 'prefix'=>'required'];
         }
         $request->validate($rules);
