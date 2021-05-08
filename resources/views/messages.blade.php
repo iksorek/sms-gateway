@@ -13,18 +13,7 @@
             @else
 
                 <livewire:send-message />
-                {{--               ONLY FOR REGISTRED AND VERIFIED--}}
-{{--                <form action="sendMessage" method="post" class="h-3/4">--}}
-{{--                    @csrf--}}
-{{--                    <livewire:search-users>--}}
 
-{{--                        <x-label>Your text message</x-label>--}}
-{{--                        <x-input type="textarea" name="message"--}}
-{{--                                 value="{{old('message')}}"--}}
-{{--                                 class="h-48 w-3/4" placeholder="Type message here"/>--}}
-{{--                        <x-button class="w-3/4 my-2">Send</x-button>--}}
-
-{{--                </form>--}}
             @endif
         </div>
 

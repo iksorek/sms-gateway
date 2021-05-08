@@ -45,8 +45,8 @@ class RefreshSmsStatus implements ShouldQueue
                 5,
             );
         foreach ($messages as $record) {
-            $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
-            Sms::where('recipient', '=', $string_to_be_compared)->where('message', '=', $record->body)->update(['status' => $record->status]);
+//            $string_to_be_compared = '0' . substr($record->to, -10); //i know, this is poor solution, but work for now :)
+            Sms::where('recipient', '=', $record->to)->where('message', '=', $record->body)->update(['status' => $record->status]);
         }
     }
 }

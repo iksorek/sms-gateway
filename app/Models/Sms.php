@@ -12,9 +12,10 @@ class Sms extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $attributes =[
-      'status' => 'In queue',
+    protected $attributes = [
+        'status' => 'In queue',
     ];
+
     public function User(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -23,7 +24,9 @@ class Sms extends Model
     protected static function booted()
     {
         static::created(function ($Sms) {
-            ProcessSms::dispatch($Sms);
+            if (env('SEND')) {
+                ProcessSms::dispatch($Sms);
+            }
 
         });
     }

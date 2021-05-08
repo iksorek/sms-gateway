@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="description">
-    Your mobile number must be valid to be able to send and receive text messages.
+        Your mobile number must be valid to be able to send and receive text messages.
     </x-slot>
 
     <x-slot name="content">
@@ -15,16 +15,35 @@
             @endif
             <div>
                 @if(Auth::user()->mobile && Auth::user()->mobile_verified_at)
-                    <p class="text-center text-xl m-3">Your mobile hab been verified, and Your account is active. Feel free to <a
+                    <p class="text-center text-xl m-3">Your mobile hab been verified, and Your account is active. Feel
+                        free to <a
                             href="{{route('messages')}}">send text</a></p>
                 @endif
                 <form action="{{ route('updateMobileNo') }}" method="post">
                     @csrf
                     <x-label>Mobile number</x-label>
+                    <select
+                        name="prefix"
+                        class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+
+
+                        <option
+                            @if(\Illuminate\Support\Facades\Auth::user()->prefix == '+44')
+                            selected
+                            @endif
+                            value="+44">+44
+                        </option>
+                        <option
+                            @if(\Illuminate\Support\Facades\Auth::user()->prefix == '+48')
+                            selected
+                            @endif
+                            value="+48">+48
+                        </option>
+                    </select>
                     <x-input placeholder="eg 07533078790" type="text"
                              value="{{Auth::user()->mobile ?? ''}}"
-
                              class="m-5" name="newmobile"></x-input>
+                    @error('newmobile') <p class="text-red-600 text-xl-center">{{ $message }}</p> @enderror
 
                     <x-jet-button>
                         @if(Auth::user()->mobile)
@@ -33,7 +52,7 @@
                             Submit
                         @endif
                     </x-jet-button>
-                  </form>
+                </form>
             </div>
 
 

@@ -14,10 +14,11 @@ class SendMessage extends Component
 
     public $message;
     public $recipient = '';
+    public $prefix = '';
     public $search = '';
 
     protected $rules = [
-        'recipient' => 'required|numeric|digits:11',
+        'recipient' => 'required',
         'message' => 'required|max:140|min:3'
     ];
 
@@ -26,7 +27,7 @@ class SendMessage extends Component
         $this->validate();
 
         Auth::user()->Sms()->create([
-            'recipient' => $this->recipient,
+            'recipient' => $this->prefix.$this->recipient,
             'message' => $this->message,
         ]);
         request()->session()->flash('flash.banner', 'Message has been add to our queue.');

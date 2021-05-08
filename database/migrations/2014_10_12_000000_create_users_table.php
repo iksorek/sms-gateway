@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->text('profile_photo_path')->nullable();
             $table->timestamps();
             $table->string('mobile')->nullable();
+            $table->string('prefix')->default('+44');
+            $table->string('lang')->default('en_GB');
             $table->integer('verification_code')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
 

@@ -10,7 +10,7 @@
             <div class="absolute bg-gray-200 rounded-l p-5">
                 @foreach($users as $user)
                     <button type="button" value="{{$user->mobile}}"
-                            wire:click="setMobile('{{$user->mobile}}')"
+                            wire:click="setMobile('{{$user->prefix.$user->mobile}}')"
                     >{{$user->name}}</button><br>
                 @endforeach
             </div>

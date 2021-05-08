@@ -7,20 +7,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl p-10 bg-gray-300 border-b border-gray-200 rounded-2xl mx-auto py-10 sm:px-6 lg:px-8">
-{{--            TELEPHONE NUMBER EDIT >> VERIFYCATION--}}
+
+
             <div class="mt-10 sm:mt-0">
                 @livewire('profile.mobile')
             </div>
 
-            <x-jet-section-border />
-
-
+            <x-jet-section-border/>
 
 
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 
-                <x-jet-section-border />
+                <x-jet-section-border/>
             @endif
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
@@ -28,7 +27,7 @@
                     @livewire('profile.update-password-form')
                 </div>
 
-                <x-jet-section-border />
+                <x-jet-section-border/>
             @endif
 
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
@@ -36,7 +35,7 @@
                     @livewire('profile.two-factor-authentication-form')
                 </div>
 
-                <x-jet-section-border />
+                <x-jet-section-border/>
             @endif
 
             <div class="mt-10 sm:mt-0">
@@ -44,7 +43,7 @@
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
-                <x-jet-section-border />
+                <x-jet-section-border/>
 
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.delete-user-form')
